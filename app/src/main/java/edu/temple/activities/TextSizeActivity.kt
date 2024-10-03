@@ -17,19 +17,20 @@ class TextSizeActivity : AppCompatActivity() {
 
         // Create array of integers that are multiples of 5
         // Verify correctness by examining array values.
-        val textSizes = Array(20){(it + 1) * 5}
+        val textSizes = Array(20) { (it + 1) * 5 }
 
         Log.d("Array values", textSizes.contentToString())
 
-        with (findViewById(R.id.textSizeSelectorRecyclerView) as RecyclerView) {
+        with(findViewById(R.id.textSizeSelectorRecyclerView) as RecyclerView) {
 
             // TODO Step 2: Pass selected value back to activity that launched TextSizeActivity
             //Initialize the adapter. Created a callback function that brings back the textSize
             //from the selected view.
             //When we get the textSize back, we send the intent back and end this TextSizeActivity
-            adapter = TextSizeAdapter(textSizes){
+            adapter = TextSizeAdapter(textSizes) {
                 //This is our callback function
-                number -> Int
+                    number ->
+                Int
                 //With the given textSize returned from our adapter's ViewHolder class,
                 //create a result(which is a return intent) taht passes in that textSize in its
                 //putExtra
@@ -39,33 +40,35 @@ class TextSizeActivity : AppCompatActivity() {
             }
             layoutManager = LinearLayoutManager(this@TextSizeActivity)
         }
-}
+    }
 
 
-/* Convert to RecyclerView.Adapter */
-class TextSizeAdapter (private val textSizes: Array<Int>, private val callback: (Int)->Unit) : RecyclerView.Adapter<TextSizeAdapter.TextSizeViewHolder>() {
+    /* Convert to RecyclerView.Adapter */
+    class TextSizeAdapter(private val textSizes: Array<Int>, private val callback: (Int) -> Unit) :
+        RecyclerView.Adapter<TextSizeAdapter.TextSizeViewHolder>() {
 
-    inner class TextSizeViewHolder(val textView: TextView) : RecyclerView.ViewHolder (textView) {
-        init {
-            textView.setOnClickListener { callback(textSizes[adapterPosition]) }
+        inner class TextSizeViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
+            init {
+                textView.setOnClickListener { callback(textSizes[adapterPosition]) }
+            }
         }
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextSizeViewHolder {
-        return TextSizeViewHolder(TextView(parent.context).apply { setPadding(5, 20, 0, 20) })
-    }
-
-    override fun onBindViewHolder(holder: TextSizeViewHolder, position: Int) {
-        holder.textView.apply {
-            text = textSizes[position].toString()
-            textSize = textSizes[position].toFloat()
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextSizeViewHolder {
+            return TextSizeViewHolder(TextView(parent.context).apply { setPadding(5, 20, 0, 20) })
         }
-    }
 
-    override fun getItemCount(): Int {
-        return textSizes.size
-    }
+        override fun onBindViewHolder(holder: TextSizeViewHolder, position: Int) {
+            holder.textView.apply {
+                text = textSizes[position].toString()
+                textSize = textSizes[position].toFloat()
+            }
+        }
 
+        override fun getItemCount(): Int {
+            return textSizes.size
+        }
+
+    }
 }
 
 

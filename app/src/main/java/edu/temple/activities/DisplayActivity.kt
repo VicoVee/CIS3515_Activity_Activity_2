@@ -16,6 +16,7 @@ class DisplayActivity : AppCompatActivity() {
     // TODO Step 1: Launch TextSizeActivity when button clicked to allow selection of text size value
     val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
     {
+        //When we receive our results, get the data from the result and set the text size.
         if(it.resultCode == RESULT_OK)
         {
             it.data?.apply {
